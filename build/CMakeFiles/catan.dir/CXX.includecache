@@ -267,6 +267,8 @@ string
 -
 stdexcept
 -
+algorithm
+-
 
 /usr/include/python3.8/Python.h
 patchlevel.h
