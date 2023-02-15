@@ -6,6 +6,8 @@
         "xstring": "cpp",
         "ostream": "cpp",
         "algorithm": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "tuple": "cpp",
+        "cmath": "cpp"
     }
 }
