@@ -57,9 +57,61 @@ include CMakeFiles/catan.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/catan.dir/flags.make
 
+CMakeFiles/catan.dir/src/boardcell.cpp.o: CMakeFiles/catan.dir/flags.make
+CMakeFiles/catan.dir/src/boardcell.cpp.o: ../src/boardcell.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/cypher/Catan/catan-simulation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/catan.dir/src/boardcell.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/catan.dir/src/boardcell.cpp.o -c /home/cypher/Catan/catan-simulation/src/boardcell.cpp
+
+CMakeFiles/catan.dir/src/boardcell.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/catan.dir/src/boardcell.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/cypher/Catan/catan-simulation/src/boardcell.cpp > CMakeFiles/catan.dir/src/boardcell.cpp.i
+
+CMakeFiles/catan.dir/src/boardcell.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/catan.dir/src/boardcell.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/cypher/Catan/catan-simulation/src/boardcell.cpp -o CMakeFiles/catan.dir/src/boardcell.cpp.s
+
+CMakeFiles/catan.dir/src/tile.cpp.o: CMakeFiles/catan.dir/flags.make
+CMakeFiles/catan.dir/src/tile.cpp.o: ../src/tile.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/cypher/Catan/catan-simulation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/catan.dir/src/tile.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/catan.dir/src/tile.cpp.o -c /home/cypher/Catan/catan-simulation/src/tile.cpp
+
+CMakeFiles/catan.dir/src/tile.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/catan.dir/src/tile.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/cypher/Catan/catan-simulation/src/tile.cpp > CMakeFiles/catan.dir/src/tile.cpp.i
+
+CMakeFiles/catan.dir/src/tile.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/catan.dir/src/tile.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/cypher/Catan/catan-simulation/src/tile.cpp -o CMakeFiles/catan.dir/src/tile.cpp.s
+
+CMakeFiles/catan.dir/src/road.cpp.o: CMakeFiles/catan.dir/flags.make
+CMakeFiles/catan.dir/src/road.cpp.o: ../src/road.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/cypher/Catan/catan-simulation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/catan.dir/src/road.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/catan.dir/src/road.cpp.o -c /home/cypher/Catan/catan-simulation/src/road.cpp
+
+CMakeFiles/catan.dir/src/road.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/catan.dir/src/road.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/cypher/Catan/catan-simulation/src/road.cpp > CMakeFiles/catan.dir/src/road.cpp.i
+
+CMakeFiles/catan.dir/src/road.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/catan.dir/src/road.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/cypher/Catan/catan-simulation/src/road.cpp -o CMakeFiles/catan.dir/src/road.cpp.s
+
+CMakeFiles/catan.dir/src/board.cpp.o: CMakeFiles/catan.dir/flags.make
+CMakeFiles/catan.dir/src/board.cpp.o: ../src/board.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/cypher/Catan/catan-simulation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/catan.dir/src/board.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/catan.dir/src/board.cpp.o -c /home/cypher/Catan/catan-simulation/src/board.cpp
+
+CMakeFiles/catan.dir/src/board.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/catan.dir/src/board.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/cypher/Catan/catan-simulation/src/board.cpp > CMakeFiles/catan.dir/src/board.cpp.i
+
+CMakeFiles/catan.dir/src/board.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/catan.dir/src/board.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/cypher/Catan/catan-simulation/src/board.cpp -o CMakeFiles/catan.dir/src/board.cpp.s
+
 CMakeFiles/catan.dir/src/main.cpp.o: CMakeFiles/catan.dir/flags.make
 CMakeFiles/catan.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/cypher/Catan/catan-simulation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/catan.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/cypher/Catan/catan-simulation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/catan.dir/src/main.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/catan.dir/src/main.cpp.o -c /home/cypher/Catan/catan-simulation/src/main.cpp
 
 CMakeFiles/catan.dir/src/main.cpp.i: cmake_force
@@ -72,15 +124,23 @@ CMakeFiles/catan.dir/src/main.cpp.s: cmake_force
 
 # Object files for target catan
 catan_OBJECTS = \
+"CMakeFiles/catan.dir/src/boardcell.cpp.o" \
+"CMakeFiles/catan.dir/src/tile.cpp.o" \
+"CMakeFiles/catan.dir/src/road.cpp.o" \
+"CMakeFiles/catan.dir/src/board.cpp.o" \
 "CMakeFiles/catan.dir/src/main.cpp.o"
 
 # External object files for target catan
 catan_EXTERNAL_OBJECTS =
 
+catan.cpython-38-x86_64-linux-gnu.so: CMakeFiles/catan.dir/src/boardcell.cpp.o
+catan.cpython-38-x86_64-linux-gnu.so: CMakeFiles/catan.dir/src/tile.cpp.o
+catan.cpython-38-x86_64-linux-gnu.so: CMakeFiles/catan.dir/src/road.cpp.o
+catan.cpython-38-x86_64-linux-gnu.so: CMakeFiles/catan.dir/src/board.cpp.o
 catan.cpython-38-x86_64-linux-gnu.so: CMakeFiles/catan.dir/src/main.cpp.o
 catan.cpython-38-x86_64-linux-gnu.so: CMakeFiles/catan.dir/build.make
 catan.cpython-38-x86_64-linux-gnu.so: CMakeFiles/catan.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/cypher/Catan/catan-simulation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX shared module catan.cpython-38-x86_64-linux-gnu.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/cypher/Catan/catan-simulation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX shared library catan.cpython-38-x86_64-linux-gnu.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/catan.dir/link.txt --verbose=$(VERBOSE)
 	/usr/bin/strip /home/cypher/Catan/catan-simulation/build/catan.cpython-38-x86_64-linux-gnu.so
 

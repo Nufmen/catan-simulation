@@ -1,4 +1,4 @@
-import build.catan as catan
+from build import catan
 import unittest
 
 class TestBoardCell(unittest.TestCase):
@@ -69,20 +69,42 @@ class TestRoad(unittest.TestCase):
 
 class TestBoard(unittest.TestCase):
     def setUp(self):
-        self.board = catan.Board(1)
-        self.board.loadBoardConfig("../catan_board.csv")
-        self.board.calcAdjacencies()
-        self.board.generateTiles()
-        self.board.generateRoads()
+        self.board = catan.Board("../catan_data.txt","../catan_board.csv",1)
 
     def test_loadDataConfig(self):
-        self.assertTrue(False)
+        self.assertEqual(6,self.board.getNumRows())
+        self.assertEqual(11,self.board.getNumCols())
+        self.assertEqual(19,self.board.getNumTiles())
+        self.assertEqual(4,self.board.getMaxPlayers())
+        self.assertEqual("O",self.board.getOceanSpot())
+        self.assertEqual("P",self.board.getPortSpot())
+        self.assertEqual("B",self.board.getBuildingSpot())
+        self.assertEqual([0,3,7,12,16,17,18,15,11,6,2,1,4,8,13,14,10,5,9],self.board.getTileOrder())
+        self.assertEqual([0,1,3,4,3,4,4],self.board.getTileCount())
+        self.assertEqual([5,2,6,3,8,10,9,12,11,4,8,10,9,4,5,6,3,11],self.board.getTileNumbers())
 
     def test_loadBoardConfig(self):
         self.assertEqual("O", self.board.getBoardCell(0,0).getType())
         self.assertEqual("P1", self.board.getBoardCell(1,1).getType())
         self.assertEqual("B", self.board.getBoardCell(2,2).getType())
         self.assertEqual("P5", self.board.getBoardCell(2,10).getType())
+
+    def test_badConfigFiles(self):
+        with self.assertRaises(Exception) as context1:
+            catan.Board("../not_exist.txt","../catan_board.csv")
+        self.assertTrue("FileNotFoundException" in str(context1.exception))
+        with self.assertRaises(Exception) as context2:
+            catan.Board("../catan_data.txt","../not_exist.csv")
+        self.assertTrue('FileNotFoundException' in str(context2.exception))
+        with self.assertRaises(Exception) as context3:
+            catan.Board("../catan_data.txt","../test/bad_board_1.csv",1)
+        self.assertTrue("Board Size Inconsistent" in str(context3.exception))
+        with self.assertRaises(Exception) as context4:
+            catan.Board("../test/bad_data_1.txt","../catan_board.csv",1)
+        self.assertEqual("Incorrect Value Type",str(context4.exception))
+        with self.assertRaises(Exception) as context5:
+            catan.Board("../test/bad_data_2.txt","../test/catan_board.csv",1)
+        self.assertTrue("Incorrect Array Length" in str(context5.exception))
 
     def test_calcAdjacencies(self):
         sum = 0
@@ -118,13 +140,13 @@ class TestBoard(unittest.TestCase):
         self.assertEqual([32, 42],self.board.getBoardCell(3,10).getAdjacent())
 
     def test_generateTiles(self):
-        self.assertEqual([0,1],self.board.getTiles()[7])
+        self.assertEqual([0,1],self.board.getTiles()[1])
         #Does Tilecount Match
         tile_count = [0]*7
         for tile in self.board.getTiles():
             tile_count[tile[1]]+=1
-        self.assertEquals([0,1,3,4,3,4,4],tile_count)
-        self.assertTrue(self.board.hasRobber(7))
+        self.assertEqual([0,1,3,4,3,4,4],tile_count)
+        self.assertTrue(self.board.hasRobber(1))
         self.assertEqual([22,23,24,33,34,35],self.board.getTile(7).getAdjacencies())
         self.assertEqual([12,13,14,23,24,25],self.board.getTile(3).getAdjacencies())
 
@@ -133,40 +155,34 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(72,len(self.board.getRoads()))
 
     def test_calcRoadLengths(self):
+        [6,7,8,17,18,19]
         self.assertEqual([0,0,0,0],self.board.calcRoadLength())
-        self.board.addRoad(26,27,1)
+        self.board.addRoad(34,35,1)
         self.assertEqual([1,0,0,0],self.board.calcRoadLength())
-        self.board.addRoad(27,28,1)
-        self.board.addRoad(28,39,1)
-        self.board.addRoad(39,38,1)
-        self.board.addRoad(38,37,1)
+        self.board.addRoad(36,35,1)
+        self.board.addRoad(45,46,1)
+        self.assertEqual([2,0,0,0],self.board.calcRoadLength())
+        self.board.addRoad(47,46,1)
+        self.board.addRoad(47,48,1)
+        self.assertEqual([3,0,0,0],self.board.calcRoadLength())
+        self.board.addRoad(36,47,1)
         self.assertEqual([5,0,0,0],self.board.calcRoadLength())
-        self.board.addRoad(37,26,1)
+        self.board.addSettlement(3,3,2)
+        self.assertEqual([3,0,0,0],self.board.calcRoadLength())
+        self.board.addRoad(34,45,1)
         self.assertEqual([6,0,0,0],self.board.calcRoadLength())
-        self.board.addRoad(16,27,1)
-        self.assertEqual([7,0,0,0],self.board.calcRoadLength())
-        self.board.addRoad(25,26,1)
-        self.board.addRoad(16,15,1)
-        self.board.addRoad(14,15,1)
-        self.board.addRoad(14,25,1)
-        self.assertEqual([13,0,0,0],self.board.calcRoadLength())
-        self.board.addRoad(14,25,1)
-        self.assertEqual([13,0,0,0],self.board.calcRoadLength())
-        self.board.addRoad(13,4,1)
-        self.assertEqual([13,0,0,0],self.board.calcRoadLength())
 
+        self.board.addRoad(6,7,2)
+        self.board.addRoad(7,8,2)
+        self.board.addRoad(8,19,2)
+        self.board.addRoad(17,18,2)
         self.board.addRoad(18,19,2)
-        self.board.addRoad(19,20,2)
-        self.assertEqual([5,2,0,0],self.board.calcRoadLength())
-        self.board.addRoad(29,30,2)
-        self.board.addRoad(30,31,2)
-        self.assertEqual([5,2,0,0],self.board.calcRoadLength())
-        self.board.addRoad(32,31,2)
-        self.assertEqual([5,3,0,0],self.board.calcRoadLength())
-        self.board.addRoad(20,31,2)
-        self.assertEqual([5,5,0,0],self.board.calcRoadLength())
-        self.board.addRoad(18,29,2)
-        self.assertEqual([5,7,0,0],self.board.calcRoadLength())
+        self.board.addRoad(6,17,2)
+        self.assertEqual([6,6,0,0],self.board.calcRoadLength())
+        self.board.addSettlement(1,7,3)
+        self.assertEqual([6,6,0,0],self.board.calcRoadLength())
+        self.board.addRoad(18,29,3)
+        self.assertEqual([6,6,1,0],self.board.calcRoadLength())
 
     def test_addRoad(self):
         #Check isValidRoad
@@ -206,9 +222,9 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(catan.City,self.board.getBoardCell(0,6).getBuilding())
 
     def test_moveRobber(self):
-        self.assertTrue(self.board.hasRobber(7))
+        self.assertTrue(self.board.hasRobber(1))
         self.board.moveRobber(2)
-        self.assertFalse(self.board.hasRobber(7))
+        self.assertFalse(self.board.hasRobber(1))
         self.assertTrue(self.board.hasRobber(2))
         self.board.moveRobber(2)
         self.assertTrue(self.board.hasRobber(2))
@@ -226,7 +242,7 @@ class TestBoard(unittest.TestCase):
         self.assertTrue(self.board.isTooClose(3,4))
 
     def test_hasRobber(self):
-        self.assertTrue(self.board.hasRobber(7))
+        self.assertTrue(self.board.hasRobber(1))
         self.assertFalse(self.board.hasRobber(8))
 
     def test_getBoard(self):
@@ -248,36 +264,38 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(board,self.board.getBoard())
 
     def test_getTiles(self):
-        tiles = [[5, 2],[8, 6],[4, 4],[2, 3],[10, 5],[3, 3],[11, 6],[0, 1],[9, 3],[11, 2],[6, 5],[12, 4],[6, 6],[4, 3],[5, 5],[9, 5],[3, 2],[8, 4],[10, 6]]
+        tiles = [[5, 5],[0, 1],[8, 5],[2, 4],[10, 6],[3, 4],[4, 4],[6,3],[9, 5],[11, 5],[6, 6],[11,3],[3,6],[4,2],[5,6],[12,3],[8,2],[10,2],[9,3]]
         self.assertEqual(tiles,self.board.getTiles())
 
     def test_getTileIndex(self):
-        self.assertEqual([7],self.board.getTileIndex(0))
+        self.assertEqual([1],self.board.getTileIndex(0))
         self.assertEqual([],self.board.getTileIndex(1))
         self.assertEqual([3],self.board.getTileIndex(2))
-        self.assertEqual([10,12],self.board.getTileIndex(6))
+        self.assertEqual([7,10],self.board.getTileIndex(6))
         self.assertEqual([],self.board.getTileIndex(7))
 
     def test_getResources(self):
         # Combines Lists and Checks for Robber
         resources = [[0]*4 for _ in range(5)]
         self.assertEqual(0,self.board.getBoardCell(0,6).getOwner())
-        self.assertEqual(resources,self.board.getResources(4))
+        self.assertEqual(resources,self.board.getResources(8))
         self.board.addSettlement(0,6,2)
-        resources[2][1] = 1
-        self.assertEqual(resources,self.board.getResources(4))
+        resources[3][1] = 1
+        self.assertEqual(resources,self.board.getResources(8))
         self.board.addSettlement(0,8,1)
         self.assertEqual(catan.Settlement,self.board.getBoardCell(0,8).getBuilding())
-        resources[2][0] = 1
-        self.assertEqual(resources,self.board.getResources(4))
-        self.board.addSettlement(3,4,2)
-        resources[1][1] = 1
-        self.assertEqual(resources,self.board.getResources(4))
+        resources[3][0] = 1
+        self.assertEqual(resources,self.board.getResources(8))
+        self.board.addSettlement(4,2,2)
+        resources[0][1] = 1
+        self.assertEqual(resources,self.board.getResources(8))
         self.board.upgradeSettlement(0,6)
-        resources[2][1] = 2
-        self.assertEqual(resources,self.board.getResources(4))
+        resources[3][1] = 2
+        self.assertEqual(resources,self.board.getResources(8))
         self.board.moveRobber(2)
-        self.assertEqual(resources,self.board.getResources(4))
+        resources[3][1] = 0
+        resources[3][0] = 0
+        self.assertEqual(resources,self.board.getResources(8))
 
     def test_getRoads(self):
         roads = [0]*72
@@ -289,12 +307,23 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(-1,self.board.getRoadIndex(0,1))
 
     def test_getFunctions(self):
-        self.assertEqual("../catan_board.csv",self.board.getFilename())
+        self.assertEqual("../catan_data.txt",self.board.getDataConfigFile())
+        self.assertEqual("../catan_board.csv",self.board.getBoardConfigFile())
         self.assertEqual('O',self.board.getBoardCell(0,0).getType())
         self.assertEqual('P6',self.board.getBoardCell(4,9).getType())
         self.assertEqual('B',self.board.getBoardCell(3,3).getType())
         self.assertEqual((0,0),self.board.getBoardCellCoords(0))
         self.assertEqual((3,6),self.board.getBoardCellCoords(39))
+        self.assertEqual(int,type(self.board.getNumRows()))
+        self.assertEqual(int,type(self.board.getNumCols()))
+        self.assertEqual(int,type(self.board.getNumTiles()))
+        self.assertEqual(int,type(self.board.getMaxPlayers()))
+        self.assertEqual(str,type(self.board.getOceanSpot()))
+        self.assertEqual(str,type(self.board.getPortSpot()))
+        self.assertEqual(str,type(self.board.getBuildingSpot()))
+        self.assertEqual(list,type(self.board.getTileOrder()))
+        self.assertEqual(list,type(self.board.getTileCount()))
+        self.assertEqual(list,type(self.board.getTileNumbers()))
 
 if __name__ == '__main__':
     unittest.main()

@@ -123,6 +123,60 @@ catan/fast:
 	$(MAKE) -f CMakeFiles/catan.dir/build.make CMakeFiles/catan.dir/build
 .PHONY : catan/fast
 
+src/board.o: src/board.cpp.o
+
+.PHONY : src/board.o
+
+# target to build an object file
+src/board.cpp.o:
+	$(MAKE) -f CMakeFiles/catan.dir/build.make CMakeFiles/catan.dir/src/board.cpp.o
+.PHONY : src/board.cpp.o
+
+src/board.i: src/board.cpp.i
+
+.PHONY : src/board.i
+
+# target to preprocess a source file
+src/board.cpp.i:
+	$(MAKE) -f CMakeFiles/catan.dir/build.make CMakeFiles/catan.dir/src/board.cpp.i
+.PHONY : src/board.cpp.i
+
+src/board.s: src/board.cpp.s
+
+.PHONY : src/board.s
+
+# target to generate assembly for a file
+src/board.cpp.s:
+	$(MAKE) -f CMakeFiles/catan.dir/build.make CMakeFiles/catan.dir/src/board.cpp.s
+.PHONY : src/board.cpp.s
+
+src/boardcell.o: src/boardcell.cpp.o
+
+.PHONY : src/boardcell.o
+
+# target to build an object file
+src/boardcell.cpp.o:
+	$(MAKE) -f CMakeFiles/catan.dir/build.make CMakeFiles/catan.dir/src/boardcell.cpp.o
+.PHONY : src/boardcell.cpp.o
+
+src/boardcell.i: src/boardcell.cpp.i
+
+.PHONY : src/boardcell.i
+
+# target to preprocess a source file
+src/boardcell.cpp.i:
+	$(MAKE) -f CMakeFiles/catan.dir/build.make CMakeFiles/catan.dir/src/boardcell.cpp.i
+.PHONY : src/boardcell.cpp.i
+
+src/boardcell.s: src/boardcell.cpp.s
+
+.PHONY : src/boardcell.s
+
+# target to generate assembly for a file
+src/boardcell.cpp.s:
+	$(MAKE) -f CMakeFiles/catan.dir/build.make CMakeFiles/catan.dir/src/boardcell.cpp.s
+.PHONY : src/boardcell.cpp.s
+
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -150,6 +204,60 @@ src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/catan.dir/build.make CMakeFiles/catan.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/road.o: src/road.cpp.o
+
+.PHONY : src/road.o
+
+# target to build an object file
+src/road.cpp.o:
+	$(MAKE) -f CMakeFiles/catan.dir/build.make CMakeFiles/catan.dir/src/road.cpp.o
+.PHONY : src/road.cpp.o
+
+src/road.i: src/road.cpp.i
+
+.PHONY : src/road.i
+
+# target to preprocess a source file
+src/road.cpp.i:
+	$(MAKE) -f CMakeFiles/catan.dir/build.make CMakeFiles/catan.dir/src/road.cpp.i
+.PHONY : src/road.cpp.i
+
+src/road.s: src/road.cpp.s
+
+.PHONY : src/road.s
+
+# target to generate assembly for a file
+src/road.cpp.s:
+	$(MAKE) -f CMakeFiles/catan.dir/build.make CMakeFiles/catan.dir/src/road.cpp.s
+.PHONY : src/road.cpp.s
+
+src/tile.o: src/tile.cpp.o
+
+.PHONY : src/tile.o
+
+# target to build an object file
+src/tile.cpp.o:
+	$(MAKE) -f CMakeFiles/catan.dir/build.make CMakeFiles/catan.dir/src/tile.cpp.o
+.PHONY : src/tile.cpp.o
+
+src/tile.i: src/tile.cpp.i
+
+.PHONY : src/tile.i
+
+# target to preprocess a source file
+src/tile.cpp.i:
+	$(MAKE) -f CMakeFiles/catan.dir/build.make CMakeFiles/catan.dir/src/tile.cpp.i
+.PHONY : src/tile.cpp.i
+
+src/tile.s: src/tile.cpp.s
+
+.PHONY : src/tile.s
+
+# target to generate assembly for a file
+src/tile.cpp.s:
+	$(MAKE) -f CMakeFiles/catan.dir/build.make CMakeFiles/catan.dir/src/tile.cpp.s
+.PHONY : src/tile.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -159,9 +267,21 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... catan"
+	@echo "... src/board.o"
+	@echo "... src/board.i"
+	@echo "... src/board.s"
+	@echo "... src/boardcell.o"
+	@echo "... src/boardcell.i"
+	@echo "... src/boardcell.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/road.o"
+	@echo "... src/road.i"
+	@echo "... src/road.s"
+	@echo "... src/tile.o"
+	@echo "... src/tile.i"
+	@echo "... src/tile.s"
 .PHONY : help
 
 
