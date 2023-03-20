@@ -1,15 +1,18 @@
 #ifndef CATAN_SIMULATION_ROAD_H
 #define CATAN_SIMULATION_ROAD_H
 
+#include "boardcell.h"
+
 using namespace std;
 
 class Road {
-    int cell1, cell2, owner;
+    vector<BoardCell *> cells;
+    int owner;
 
 public:
-    Road(int cell1_, int cell2_);
+    Road(BoardCell* cell1_, BoardCell* cell2_);
 
-    int getCell(int c);
+    vector<BoardCell *> getCells();
 
     int getOwner();
 

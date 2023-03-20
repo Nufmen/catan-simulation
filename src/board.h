@@ -19,10 +19,8 @@
 using namespace std;
 
 class Board {
-    int num_rows, num_cols, num_tiles, max_players, robber_tile, num_players;
-    string data_config_file, board_config_file, building_spot, ocean_spot, port_spot;
+    struct Board_Config board_config;
     vector<vector<BoardCell *>> board;
-    vector<int> tile_order, tile_count, tile_numbers;
     vector<Tile *> tiles;
     vector<Road *> roads;
     default_random_engine generator;
@@ -31,20 +29,18 @@ class Board {
 
     string removeR(string s);
 
-    int roadLength(bool first,int owner_, int cell, vector<int> *road_input);
+    int roadLength(bool first,int owner_, BoardCell* cell, vector<int> *road_input);
 
-    bool roadMatch(Road road, int cell1, int cell2); 
+    bool roadMatch(Road road, BoardCell* cell1, BoardCell* cell2); 
 
     vector<int> stringListToVector(string list);
 
 public:
 
-    Board(string dataConfigFile_, string boardConfigFile_);
+    Board(Board_Config board_config);
 
-    Board(string dataConfigFile_, string boardConfigFile_, int seed_);
-
-
-    void loadDataConfig();
+    Board(Board_Config board_config, int seed_);
+    
 
     void loadBoardConfig();
 
@@ -55,15 +51,13 @@ public:
     void generateRoads();
     
 
-    void addRoad(int cell1_, int cell2_, int owner_);
+    void addRoad(BoardCell* cell1_, BoardCell*   cell2_, int owner_);
 
     vector<int> calcRoadLength();
 
     void addSettlement(int row_, int col_, int owner_);
 
     void upgradeSettlement(int row_, int col_);
-
-    bool hasRobber(int tile_);
 
     void moveRobber(int tile_);
 
@@ -73,15 +67,15 @@ public:
 
     vector<vector<int>> getResources(int number_);
 
-    BoardCell getBoardCell(int row_, int col_);
+    BoardCell* getBoardCell(int row_, int col_);
 
     tuple<int,int> getBoardCellCoords(int id_);
 
     vector<int> getRoads();
 
-    int getRoadIndex(int cell1, int cell2);
+    int getRoadIndex(BoardCell* cell1, BoardCell* cell2);
 
-    Tile getTile(int id_);
+    Tile* getTile(int id_);
 
     vector<vector<int>> getTiles();
 

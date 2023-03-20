@@ -25,7 +25,7 @@ Harbor BoardCell::getHarbor() {return harbor;}
 
 Building BoardCell::getBuilding() {return building;}
 
-vector<int> BoardCell::getAdjacent() {return adjacent;}
+vector<BoardCell *> BoardCell::getAdjacent() {return adjacent;}
 
 void BoardCell::setOwner(int owner_) {owner = owner_;}
 
@@ -33,4 +33,4 @@ void BoardCell::setHarbor(Harbor harbor_) {harbor = harbor_;}
 
 void BoardCell::setBuilding(Building building_) {building = building_;}
 
-void BoardCell::setAdjacent(vector<int> adjacent_) {adjacent = adjacent_;}
+void BoardCell::setAdjacent(vector<BoardCell *> adjacent_) {adjacent = adjacent_;}

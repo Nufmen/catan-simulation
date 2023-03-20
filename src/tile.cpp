@@ -1,6 +1,6 @@
 #include "tile.h"
 
-Tile::Tile(int row_, int col_, int id_, Terrain terrain_, vector<int> adjacencies_) {
+Tile::Tile(int row_, int col_, int id_, Terrain terrain_, vector<BoardCell *> adjacencies_) {
     row = row_;
     col = col_;
     id = id_;
@@ -21,7 +21,7 @@ int Tile::getNumber() {return number;}
 
 Terrain Tile::getTerrain() {return terrain;}
 
-vector<int> Tile::getAdjacencies() {return adjacencies;}
+vector<BoardCell *> Tile::getAdjacencies() {return adjacencies;}
 
 void Tile::setRobber(bool robber_) {robber = robber_;}
 

@@ -3,6 +3,7 @@
 
 #include <vector>
 
+#include "boardcell.h"
 #include "components.h"
 
 using namespace std;
@@ -10,12 +11,12 @@ using namespace std;
 class Tile {
     int row, col, id, number;
     Terrain terrain;
-    vector<int> adjacencies;
+    vector<BoardCell *> adjacencies;
     bool robber = false;
 
     public:
 
-    Tile(int row_, int col_, int id_, Terrain terrain_, vector<int> adjacencies_);
+    Tile(int row_, int col_, int id_, Terrain terrain_, vector<BoardCell *> adjacencies_);
 
     bool hasRobber();
 
@@ -29,7 +30,7 @@ class Tile {
 
     Terrain getTerrain();
 
-    vector<int> getAdjacencies();
+    vector<BoardCell *> getAdjacencies();
 
     void setNumber(int number_);
 

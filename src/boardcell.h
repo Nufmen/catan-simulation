@@ -13,7 +13,7 @@ class BoardCell {
     string type;
     Building building;
     Harbor harbor;
-    vector<int> adjacent;
+    vector<BoardCell *> adjacent;
 
 public:
     BoardCell(int row_, int col_, int id_, string type_);
@@ -32,7 +32,7 @@ public:
 
     Building getBuilding();
 
-    vector<int> getAdjacent();
+    vector<BoardCell *> getAdjacent();
 
 
     void setOwner(int owner_);
@@ -41,7 +41,7 @@ public:
 
     void setBuilding(Building building_);
 
-    void setAdjacent(vector<int> adjacent_);
+    void setAdjacent(vector<BoardCell *> adjacent_);
 };
 
 #endif

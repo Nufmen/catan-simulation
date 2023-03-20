@@ -1,21 +1,12 @@
 #include "road.h"
 
-    Road::Road(int cell1_, int cell2_) {
-        cell1 = cell1_;
-        cell2 = cell2_;
+    Road::Road(BoardCell* cell1_, BoardCell* cell2_) {
+        cells.push_back(cell1_);
+        cells.push_back(cell2_);
         owner = 0;
     }
 
-    int Road::getCell(int c) {
-        switch(c) {
-            case 1:
-                return cell1;
-            case 2:
-                return cell2;
-            default:
-                return -1;
-        }
-    }
+    vector<BoardCell *> Road::getCells() {return cells;}
 
     int Road::getOwner() {return owner;}
 
