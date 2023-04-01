@@ -7,10 +7,13 @@
 #include "game_state.h"
 
 class Game {
-    int num_rows, num_cols, num_tiles, max_players, robber_tile, num_players;
-    string data_config_file, board_config_file, building_spot, ocean_spot, port_spot;
-    vector<int> tile_order, tile_count, tile_numbers;
-    struct Game_State* game_state;
+    string data_config_file, board_config_file;
+    Bank* bank;
+    Board* board;
+    vector<Player*> players;
+    vector<int> dev_card_count;
+    default_random_engine generator;
+    uniform_int_distribution<> dice;
     struct Board_Config board_config;
 
     string remove_r(string s);
@@ -18,7 +21,7 @@ class Game {
     vector<int> string_list_to_vector(string list);
 
     public:
-    Game(string data_config_file, string board_config_file);
+    Game(string data_config_file, string board_config_file, vector<Player*> players);
 
     void load_data_config();
 
@@ -42,9 +45,7 @@ class Game {
 
     void monopoly();
 
-    struct Game_State* get_game_state();
-
-    int get_num_players();
+    int get_num_players() {return board_config.num_players;}
 
 };
 

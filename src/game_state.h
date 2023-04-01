@@ -16,10 +16,8 @@ struct Player_State {
 };
 
 struct Game_State {
-    int test;
-    Bank* bank;
-    Board* board;
-    vector<struct Player_State>* players;
+    vector<vector<vector<int>>> board;
+    vector<Player_State*> players;
 };
 
 #endif

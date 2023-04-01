@@ -3,20 +3,21 @@
 
 using namespace std;
 
-Bank::Bank(int num_resources_, int resource_count_) {
+Bank::Bank(int num_resources_, int resource_count_, vector<int> dev_card_count_) {
     num_resources = num_resources_;
     resource_count = resource_count_;
+    dev_card_count = dev_card_count_;
     resources.resize(num_resources);
     fill(resources.begin(), resources.end(),resource_count);
     generator.seed(time(0));
+    generate_dev_cards();
 }
 
 void Bank::generate_dev_cards() {
-    vector<int> c{14,5,2,2,2};
     dev_cards = new vector<Development_Card>;
 
-    for(int i=0; i<c.size();i++){
-        for(int j=0;j<c[i];j++) {
+    for(int i=0; i<dev_card_count.size();i++){
+        for(int j=0;j<dev_card_count[i];j++) {
             dev_cards->push_back((Development_Card)i);
         }
     }

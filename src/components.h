@@ -41,6 +41,7 @@ enum Harbor {
 };
 
 enum Development_Card {
+    NoDevCard,
     Knight,
     VictoryPoint,
     RoadBuilding,
@@ -48,10 +49,35 @@ enum Development_Card {
     Monopoly
 };
 
+enum Player_Move {
+    NoMove,
+    RollDice,
+    EndTurn,
+    PlaceRoad,
+    PlaceSettlement,
+    PlaceCity,
+    BuyDevCard,
+    UseDevCard,
+    TradeOffer,
+    TradeBank
+};
+
 struct Board_Config {
     int num_rows, num_cols, num_tiles, max_players, robber_tile, num_players;
     string board_config_file, building_spot, ocean_spot, port_spot;
     vector<int> tile_order, tile_count, tile_numbers;
+};
+
+struct Road_Data {
+    int row1, col1, row2, col2;
+};
+
+struct Coordinate_Data {
+    int row, col;
+};
+
+struct Trade {
+    vector<Resource> offer, request;
 };
 
 #endif

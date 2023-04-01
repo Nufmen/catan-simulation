@@ -8,42 +8,54 @@
 #include "bank.h"
 #include "boardcell.h"
 #include "components.h"
-#include "game_state.h"
 using namespace std;
 
 class Player {
-    vector<int> resources;
+    vector<int> resources, trade_rate;
     vector<Development_Card> dev_cards;
-    int victory_points, roads, settlements, cities;
-    Game_State* game_state;
+    vector<Road_Data> road_order;
     default_random_engine generator;
-    uniform_int_distribution<> dice;
-    int owner;
+    int victory_points, roads, settlements, cities;
+    int owner, state;
+    bool rolled_dice;
 
     public:
     
-    Player(int owner, int num_resources, int num_roads, int num_settlements, int num_cities, Game_State* game_state);
+    Player(int owner, int num_resources, int num_roads, int num_settlements, int num_cities, default_random_engine generator);
 
-    void call_player_action();
+    Player_Move call_player_action();
 
-    int roll_dice();
+    bool is_valid_action(Player_Move move);
 
-    void end_turn();
+    Road_Data place_road();
 
-    void send_trade_offer(vector<Resource> offer, vector<Resource> request);
+    Coordinate_Data place_settlement();
+    
+    Coordinate_Data place_city();
 
-    void accept_trade_offer();
+    Development_Card use_dev_card();
 
-    void play_dev_card(Development_Card dev_card);
+    Trade trade_offer();
 
-    void buy_dev_card();
+    Trade trade_bank();
 
-    void place_road(BoardCell* cell1, BoardCell* cell2);
+    Trade discard_hand();
 
-    void place_settlement(int row, int col);
+    bool accept_trade(Trade trade);
 
-    void place_city(int row, int col);
+    Coordinate_Data move_robber();
 
+    int steal_resource(vector<int> players);
+
+    void set_state(int state) {state = state;}
+
+    void set_rolled_dice(bool dice) {rolled_dice = dice;}
+
+    void add_dev_card(Development_Card card) {dev_cards.push_back(card);}
+
+    void add_resources(vector<Resource> resources);
+
+    void remove_resources(vector<Resource> resources);
 };
 
 #endif
