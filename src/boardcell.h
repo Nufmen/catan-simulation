@@ -9,39 +9,45 @@
 using namespace std;
 
 class BoardCell {
-    int row, col, id, owner;
+    int row, col, id, owner, settlement;
     string type;
     Building building;
     Harbor harbor;
-    vector<int> adjacent;
+    vector<BoardCell *> adjacent;
+    bool start = false;
 
 public:
-    BoardCell(int row_, int col_, int id_, string type_);
+    BoardCell(int row, int col, int id, string type);
 
-    int getRow();
+    int get_row() {return row;}
 
-    int getCol();
+    int get_col() {return col;}
 
-    int getId();
+    int get_id() {return id;}
 
-    string getType();
+    string get_type() {return type;}
 
-    int getOwner();
+    int get_owner() {return owner;}
 
-    Harbor getHarbor();
+    Harbor get_harbor() {return harbor;}
 
-    Building getBuilding();
+    Building get_building() {return building;}
 
-    vector<int> getAdjacent();
+    vector<BoardCell *> get_adjacent() {return adjacent;}
 
+    int get_settlement() {return settlement;}
 
-    void setOwner(int owner_);
+    void set_owner(int owner_) {owner = owner_;}
 
-    void setHarbor(Harbor harbor_);
+    void set_harbor(Harbor harbor_) {harbor = harbor_;}
 
-    void setBuilding(Building building_);
+    void set_building(Building building_) {building = building_;}
 
-    void setAdjacent(vector<int> adjacent_);
+    void set_adjacent(vector<BoardCell *> adjacent_) {adjacent = adjacent_;}
+
+    void set_settlement(int settlement_num) {settlement = settlement_num;}
+
+    void set_start(bool start_) {start = start_;}
 };
 
 #endif

@@ -1,0 +1,16 @@
+add_library(boardcell boardcell.cpp)
+add_library(tile tile.cpp)
+add_library(road road.cpp)
+add_library(board board.cpp)
+add_library(player player.cpp)
+add_library(default_player default_player.cpp)
+add_library(bank bank.cpp)
+add_library(game game.cpp)
+target_link_libraries(tile PRIVATE boardcell)
+target_link_libraries(road boardcell)
+target_link_libraries(board boardcell tile road)
+#target_link_libraries(player bank board)
+target_link_libraries(default_player player)
+target_link_libraries(game bank board player)
+
+
