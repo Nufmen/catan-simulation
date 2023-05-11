@@ -10,13 +10,13 @@ class Road {
     int owner;
 
 public:
-    Road(BoardCell* cell1_, BoardCell* cell2_);
+    Road(BoardCell* cell1, BoardCell* cell2);
 
-    vector<BoardCell *> getCells();
+    vector<BoardCell *> get_cells() {return cells;}
 
-    int getOwner();
+    int get_owner() {return owner;}
 
-    void setOwner(int owner_);
+    void set_owner(int owner_) {owner = owner_;}
 };
 
 

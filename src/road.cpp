@@ -5,9 +5,3 @@
         cells.push_back(cell2_);
         owner = 0;
     }
-
-    vector<BoardCell *> Road::getCells() {return cells;}
-
-    int Road::getOwner() {return owner;}
-
-    void Road::setOwner(int owner_) {owner = owner_;}

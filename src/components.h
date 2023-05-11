@@ -7,9 +7,9 @@
 using namespace std;
 
 enum Building {
-    Undeveloped = 0,
-    Settlement = 1,
-    City = 2
+    Undeveloped,
+    Settlement,
+    City
 };
 
 enum Resource {
@@ -25,32 +25,31 @@ enum Terrain {
     Desert,
     Hill,
     Forest,
-    Mountian,
+    Pasture,
     Field,
-    Pasture
+    Mountian
 };
 
 enum Harbor {
-    NoHarbor,
     GenericHarbor,
     BrickHarbor,
     LumberHarbor,
     WoolHarbor,
     GrainHarbor,
-    OreHarbor
+    OreHarbor,
+    NoHarbor
 };
 
 enum Development_Card {
-    NoDevCard,
     Knight,
     VictoryPoint,
     RoadBuilding,
     YearOfPlenty,
-    Monopoly
+    Monopoly,
+    NoDevCard
 };
 
 enum Player_Move {
-    NoMove,
     RollDice,
     EndTurn,
     PlaceRoad,
@@ -59,13 +58,14 @@ enum Player_Move {
     BuyDevCard,
     UseDevCard,
     TradeOffer,
-    TradeBank
+    TradeBank,
+    NoMove
 };
 
 struct Board_Config {
-    int num_rows, num_cols, num_tiles, max_players, robber_tile, num_players;
+    int num_rows, num_cols, num_tiles, max_players, robber_tile, num_players, num_resources;
     string board_config_file, building_spot, ocean_spot, port_spot;
-    vector<int> tile_order, tile_count, tile_numbers;
+    vector<int> tile_order, tile_count, tile_numbers, harbor_count;
 };
 
 struct Road_Data {
@@ -78,6 +78,7 @@ struct Coordinate_Data {
 
 struct Trade {
     vector<Resource> offer, request;
+    Harbor harbor;
 };
 
 #endif

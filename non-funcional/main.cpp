@@ -1,9 +1,16 @@
 #include "pybind11/pybind11.h"
 #include "pybind11/stl.h"
-#include "board.h"
+#include "game.h"
+#include "player.h"
+#include "game_state.h"
 #include "components.h"
 
 namespace py = pybind11;
+
+class PyPlayer: public Player {
+    using Player::Player;
+
+};
 
 PYBIND11_MODULE(catan, handle) {
     handle.doc() = "This is the module docs. Teehee";
@@ -44,12 +51,20 @@ PYBIND11_MODULE(catan, handle) {
     .value("OreHarbor",OreHarbor)
     .export_values();
 
+    py::class_<Player>(handle, "Player")
+    .def(py::init<int,int,int,int,int>())
+    .def("call_player_action", &Player::call_player_action);
+
+    py::class_<Game>(handle, "Game")
+    .def(py::init<string,string,vector<Player>>());
+
     /*
     py::enum_<>(handle, "")
     .value("",)
     .export_values();
     */
 
+   /*
     py::class_<BoardCell>(handle, "BoardCell")
     .def(py::init<int,int,int,string>())
     .def("getRow", &BoardCell::getRow)
@@ -118,7 +133,7 @@ PYBIND11_MODULE(catan, handle) {
     .def("getBuildingSpot", &Board::getBuildingSpot)
     .def("getTileOrder", &Board::getTileOrder)
     .def("getTileCount", &Board::getTileCount)
-    .def("getTileNumbers", &Board::getTileNumbers);
+    .def("getTileNumbers", &Board::getTileNumbers);*/
 
     /*
     py::class_<>(handle, "")

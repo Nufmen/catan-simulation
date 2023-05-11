@@ -5,8 +5,8 @@
 TEST_CASE("Get Functions", "[boardcell]") {
     BoardCell cell = BoardCell(0,0,0,"O");
     
-    REQUIRE(cell.getRow() == 0);
-    REQUIRE(cell.getCol() == 0);
+    REQUIRE(cell.get_row() == 0);
+    REQUIRE(cell.get_col() == 0);
     REQUIRE(cell.getId() == 0);
     REQUIRE(cell.getOwner() == 0);
     REQUIRE(cell.getType() == "O");

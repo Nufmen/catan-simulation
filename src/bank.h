@@ -15,14 +15,18 @@ class Bank {
     vector<Development_Card>* dev_cards;
     default_random_engine generator;
 
-    public:
-    Bank(int num_resources, int resource_count, vector<int> dev_card_count);
-
     void generate_dev_cards();
+
+    public:
+    Bank(int num_resources, int resource_count, vector<int> dev_card_count, default_random_engine generator);
 
     Development_Card draw_dev_card();
 
-    bool accept_trade_offer(vector<Resource> offer, vector<Resource> request, Harbor port);
+    bool accept_trade_offer(Trade trade, Harbor port);
+
+    void add_resources(vector<Resource> resources);
+
+    bool remove_resources(vector<Resource> resources);
 
     vector<Development_Card>* get_dev_cards() {return dev_cards;}
 
@@ -31,6 +35,8 @@ class Bank {
     int get_resource_count() {return resource_count;}
 
     int get_num_dev_cards() {return dev_cards->size();}
+
+    string get_dev_card_state();
 };
 
 #endif

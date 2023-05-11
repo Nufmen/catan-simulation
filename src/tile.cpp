@@ -9,20 +9,12 @@ Tile::Tile(int row_, int col_, int id_, Terrain terrain_, vector<BoardCell *> ad
     adjacencies = adjacencies_;
 }
 
-bool Tile::hasRobber() {return robber;}
-
-int Tile::getRow() {return row;}
-
-int Tile::getCol() {return col;}
-
-int Tile::getId() {return id;}
-
-int Tile::getNumber() {return number;}
-
-Terrain Tile::getTerrain() {return terrain;}
-
-vector<BoardCell *> Tile::getAdjacencies() {return adjacencies;}
-
-void Tile::setRobber(bool robber_) {robber = robber_;}
-
-void Tile::setNumber(int number_) {number = number_;}
+vector<int> Tile::get_adjacent_owners() {
+    vector<int> owners;
+    for(BoardCell* c: adjacencies){
+        if(c->get_owner() == 0)
+            continue;
+        owners.push_back(c->get_owner());
+    }
+    return owners;
+}

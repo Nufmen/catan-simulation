@@ -4,6 +4,7 @@
 
 Bank* bank;
 vector<Development_Card> cards;
+default_random_engine generator;
 
 TEST_CASE("Number of Dev Cards","[bank]") {
     REQUIRE(bank->get_num_dev_cards() == 25);
@@ -60,176 +61,191 @@ TEST_CASE("Draw Dev Card","[bank]") {
 }
 
 TEST_CASE("Empty Trade No Harbor","[bank]") {
-    vector<Resource> offer = {};
-    vector<Resource> request = {};
-
-    REQUIRE(!bank->accept_trade_offer(offer, request, NoHarbor));
+    Trade trade;
+    REQUIRE(!bank->accept_trade_offer(trade, NoHarbor));
 }
 
 TEST_CASE("Empty Trade Generic Harbor","[bank]") {
-    vector<Resource> offer = {};
-    vector<Resource> request = {};
-
-    REQUIRE(!bank->accept_trade_offer(offer, request, GenericHarbor));
+    Trade trade;
+    REQUIRE(!bank->accept_trade_offer(trade, GenericHarbor));
 }
 
 TEST_CASE("Empty Trade 2 for 1 Harbor","[bank]") {
-    vector<Resource> offer = {};
-    vector<Resource> request = {};
-
-    REQUIRE(!bank->accept_trade_offer(offer, request, BrickHarbor));
+    Trade trade;
+    REQUIRE(!bank->accept_trade_offer(trade, BrickHarbor));
 }
 
 TEST_CASE("2 for 1 No Harbor","[bank]") {
-    vector<Resource> offer = {Brick,Brick};
-    vector<Resource> request = {Grain};
-
-    REQUIRE(!bank->accept_trade_offer(offer, request, NoHarbor));
+    Trade trade;
+    trade.offer = {Brick,Brick};
+    trade.request = {Grain};
+    REQUIRE(!bank->accept_trade_offer(trade, NoHarbor));
 }
 
 TEST_CASE("2 for 1 Generic Harbor","[bank]") {
-    vector<Resource> offer = {Brick,Brick};
-    vector<Resource> request = {Grain};
+    Trade trade;
+    trade.offer = {Brick,Brick};
+    trade.request = {Grain};
 
-    REQUIRE(!bank->accept_trade_offer(offer, request, GenericHarbor));
+    REQUIRE(!bank->accept_trade_offer(trade, GenericHarbor));
 }
 
 TEST_CASE("2 for 1 Right Harbor Brick","[bank]") {
-    vector<Resource> offer = {Brick,Brick};
-    vector<Resource> request = {Grain};
+    Trade trade;
+    trade.offer = {Brick,Brick};
+    trade.request = {Grain};
 
-    REQUIRE(bank->accept_trade_offer(offer, request, BrickHarbor));
+    REQUIRE(bank->accept_trade_offer(trade, BrickHarbor));
 }
 
 TEST_CASE("2 for 1 Right Harbor Lumber","[bank]") {
-    vector<Resource> offer = {Lumber,Lumber};
-    vector<Resource> request = {Grain};
+    Trade trade;
+    trade.offer = {Lumber,Lumber};
+    trade.request = {Grain};
 
-    REQUIRE(bank->accept_trade_offer(offer, request, LumberHarbor));
+    REQUIRE(bank->accept_trade_offer(trade, LumberHarbor));
 }
 
 TEST_CASE("2 for 1 Right Harbor Wool","[bank]") {
-    vector<Resource> offer = {Wool,Wool};
-    vector<Resource> request = {Grain};
+    Trade trade;
+    trade.offer = {Wool,Wool};
+    trade.request = {Grain};
 
-    REQUIRE(bank->accept_trade_offer(offer, request, WoolHarbor));
+    REQUIRE(bank->accept_trade_offer(trade, WoolHarbor));
 }
 
 TEST_CASE("2 for 1 Right Harbor Ore","[bank]") {
-    vector<Resource> offer = {Ore,Ore};
-    vector<Resource> request = {Grain};
+    Trade trade;
+    trade.offer = {Ore,Ore};
+    trade.request = {Grain};
 
-    REQUIRE(bank->accept_trade_offer(offer, request, OreHarbor));
+    REQUIRE(bank->accept_trade_offer(trade, OreHarbor));
 }
 
 TEST_CASE("2 for 1 Right Harbor Grain","[bank]") {
-    vector<Resource> offer = {Grain,Grain};
-    vector<Resource> request = {Brick};
+    Trade trade;
+    trade.offer = {Grain,Grain};
+    trade.request = {Brick};
 
-    REQUIRE(bank->accept_trade_offer(offer, request, GrainHarbor));
+    REQUIRE(bank->accept_trade_offer(trade, GrainHarbor));
 }
 
 TEST_CASE("2 for 1 Wrong Harbor Brick","[bank]") {
-    vector<Resource> offer = {Lumber,Lumber};
-    vector<Resource> request = {Grain};
+    Trade trade;
+    trade.offer = {Lumber,Lumber};
+    trade.request = {Grain};
 
-    REQUIRE(!bank->accept_trade_offer(offer, request, BrickHarbor));
+    REQUIRE(!bank->accept_trade_offer(trade, BrickHarbor));
 }
 
 TEST_CASE("2 for 1 Wrong Harbor Lumber","[bank]") {
-    vector<Resource> offer = {Ore,Ore};
-    vector<Resource> request = {Grain};
+    Trade trade;
+    trade.offer = {Ore,Ore};
+    trade.request = {Grain};
 
-    REQUIRE(!bank->accept_trade_offer(offer, request, LumberHarbor));
+    REQUIRE(!bank->accept_trade_offer(trade, LumberHarbor));
 }
 
 TEST_CASE("2 for 1 Wrong Harbor Wool","[bank]") {
-    vector<Resource> offer = {Grain, Grain};
-    vector<Resource> request = {Brick};
+    Trade trade;
+    trade.offer = {Grain, Grain};
+    trade.request = {Brick};
 
-    REQUIRE(!bank->accept_trade_offer(offer, request, WoolHarbor));
+    REQUIRE(!bank->accept_trade_offer(trade, WoolHarbor));
 }
 
 TEST_CASE("2 for 1 Wrong Harbor Ore","[bank]") {
-    vector<Resource> offer = {Wool,Wool};
-    vector<Resource> request = {Grain};
+    Trade trade;
+    trade.offer = {Wool,Wool};
+    trade.request = {Grain};
 
-    REQUIRE(!bank->accept_trade_offer(offer, request, OreHarbor));
+    REQUIRE(!bank->accept_trade_offer(trade, OreHarbor));
 }
 
 TEST_CASE("2 for 1 Wrong Harbor Grain","[bank]") {
-    vector<Resource> offer = {Brick,Brick};
-    vector<Resource> request = {Grain};
+    Trade trade;
+    trade.offer = {Brick,Brick};
+    trade.request = {Grain};
 
-    REQUIRE(!bank->accept_trade_offer(offer, request, GrainHarbor));
+    REQUIRE(!bank->accept_trade_offer(trade, GrainHarbor));
 }
 
 TEST_CASE("2 for 1 Resource Not Match","[bank]") {
-    vector<Resource> offer = {Brick,Lumber};
-    vector<Resource> request = {Grain};
+    Trade trade;
+    trade.offer = {Brick,Lumber};
+    trade.request = {Grain};
 
-    REQUIRE(!bank->accept_trade_offer(offer, request, BrickHarbor));
+    REQUIRE(!bank->accept_trade_offer(trade, BrickHarbor));
 }
 
 TEST_CASE("3 for 1 No Harbor","[bank]") {
-    vector<Resource> offer = {Brick,Brick,Brick};
-    vector<Resource> request = {Grain};
+    Trade trade;
+    trade.offer = {Brick,Brick,Brick};
+    trade.request = {Grain};
 
-    REQUIRE(!bank->accept_trade_offer(offer, request, NoHarbor));
+    REQUIRE(!bank->accept_trade_offer(trade, NoHarbor));
 }
 
 TEST_CASE("3 for 1 Generic Harbor","[bank]") {
-    vector<Resource> offer = {Brick,Brick,Brick};
-    vector<Resource> request = {Grain};
+    Trade trade;
+    trade.offer = {Brick,Brick,Brick};
+    trade.request = {Grain};
 
-    REQUIRE(bank->accept_trade_offer(offer, request, GenericHarbor));
+    REQUIRE(bank->accept_trade_offer(trade, GenericHarbor));
 }
 
 TEST_CASE("3 for 1 Matching Harbor","[bank]") {
-    vector<Resource> offer = {Brick,Brick,Brick};
-    vector<Resource> request = {Grain};
+    Trade trade;
+    trade.offer = {Brick,Brick,Brick};
+    trade.request = {Grain};
 
-    REQUIRE(!bank->accept_trade_offer(offer, request, BrickHarbor));
+    REQUIRE(!bank->accept_trade_offer(trade, BrickHarbor));
 }
 
 TEST_CASE("3 for 1 Resource Not Match","[bank]") {
-    vector<Resource> offer = {Brick,Lumber,Brick};
-    vector<Resource> request = {Grain};
+    Trade trade;
+    trade.offer = {Brick,Lumber,Brick};
+    trade.request = {Grain};
 
-    REQUIRE(!bank->accept_trade_offer(offer, request, GenericHarbor));
+    REQUIRE(!bank->accept_trade_offer(trade, GenericHarbor));
 }
 
 TEST_CASE("4 for 1 No Harbor","[bank]") {
-    vector<Resource> offer = {Brick,Brick,Brick,Brick};
-    vector<Resource> request = {Grain};
+    Trade trade;
+    trade.offer = {Brick,Brick,Brick,Brick};
+    trade.request = {Grain};
 
-    REQUIRE(bank->accept_trade_offer(offer, request, NoHarbor));
+    REQUIRE(bank->accept_trade_offer(trade, NoHarbor));
 }
 
 TEST_CASE("4 for 1 Generic Harbor","[bank]") {
-    vector<Resource> offer = {Brick,Brick,Brick,Brick};
-    vector<Resource> request = {Grain};
+    Trade trade;
+    trade.offer = {Brick,Brick,Brick,Brick};
+    trade.request = {Grain};
 
-    REQUIRE(!bank->accept_trade_offer(offer, request, GenericHarbor));
+    REQUIRE(!bank->accept_trade_offer(trade, GenericHarbor));
 }
 
 TEST_CASE("4 for 1 Matching Harbor","[bank]") {
-    vector<Resource> offer = {Brick,Brick,Brick,Brick};
-    vector<Resource> request = {Grain};
+    Trade trade;
+    trade.offer = {Brick,Brick,Brick,Brick};
+    trade.request = {Grain};
 
-    REQUIRE(!bank->accept_trade_offer(offer, request, BrickHarbor));
+    REQUIRE(!bank->accept_trade_offer(trade, BrickHarbor));
 }
 
 TEST_CASE("4 for 1 Resources Not Match","[bank]") {
-    vector<Resource> offer = {Brick,Brick,Lumber,Brick};
-    vector<Resource> request = {Grain};
+    Trade trade;
+    trade.offer = {Brick,Brick,Lumber,Brick};
+    trade.request = {Grain};
 
-    REQUIRE(!bank->accept_trade_offer(offer, request, NoHarbor));
+    REQUIRE(!bank->accept_trade_offer(trade, NoHarbor));
 }
 
 int main(int argc, char* argv[]) {
     vector<int> c{14,5,2,2,2};
-    bank = new Bank(5,19,c);
+    generator.seed(time(0));
+    bank = new Bank(5,19,c,generator);
     cards = *bank->get_dev_cards();
     Catch::Session session;
     int returnCode = session.applyCommandLine( argc, argv );

@@ -1,83 +1,23 @@
 #include "player.h"
-#include "game_state.h"
 
-Player::Player(int owner_, int num_resources, int num_roads, int num_settlements, int num_cities, default_random_engine generator_) {
+Player::Player(int owner_, int num_resources, int num_roads, int num_settlements, int num_cities) {
     resources.resize(num_resources);
     fill(resources.begin(), resources.end(),0);
+    player_state = new Player_State;
+    player_state->dev_cards = 0;
+    player_state->knights = 0;
+    player_state->num_cards = 0;
+    player_state->road_length = 0;
+    player_state->victory_points = 0;
     victory_points = 0;
     roads = num_roads;
     settlements = num_settlements;
     cities = num_cities;
     owner = owner_;
-    generator = generator_;
-    state = 0;
+    generator.seed(time(NULL));
     rolled_dice = false;
+    played_dev_card = false;
     trade_rate = vector<int>{4,4,4,4,4};
-}
-
-Player_Move Player::call_player_action() {
-    switch(state) {
-        case 0:
-            if(is_valid_action(UseDevCard)) {
-                state = 1;
-                return UseDevCard;
-            }
-        case 1:
-            if(is_valid_action(RollDice)) {
-                state = 2;
-                rolled_dice = true;
-                return RollDice;
-            }
-        case 2:
-            if(is_valid_action(TradeOffer)) {
-                state = 3;
-                return TradeOffer;
-            }
-        case 3:
-            if(is_valid_action(TradeBank)) {
-                state = 4;
-                return TradeBank;
-            }
-        case 4:
-            if(is_valid_action(UseDevCard)) {
-                state = 5;
-                return UseDevCard;
-            }
-        case 5:
-            if(is_valid_action(PlaceCity)) {
-                state = 6;
-                return PlaceCity;
-            }
-        case 6:
-            if(is_valid_action(PlaceSettlement)) {
-                state = 7;
-                return PlaceSettlement;
-            }
-        case 7:
-            if(is_valid_action(PlaceRoad)) {
-                state = 8;
-                return PlaceRoad;
-            }
-        case 8:
-            if(is_valid_action(PlaceRoad)) {
-                state = 9;
-                return PlaceRoad;
-            }
-        case 9:
-            if(is_valid_action(BuyDevCard)) {
-                state = 10;
-                return BuyDevCard;
-            }
-        case 10:
-            if(is_valid_action(EndTurn)) {
-                state = 0;
-                return EndTurn;
-            }
-        default:
-            state = 0;
-            return call_player_action();
-    }
-    return NoMove;
 }
 
 bool Player::is_valid_action(Player_Move move_) {
@@ -110,60 +50,78 @@ bool Player::is_valid_action(Player_Move move_) {
             return false;
         case TradeBank:
             for(int i=0;i<resources.size();i++)
-                if(resources[i]>=trade_rate[i])
+                if(resources[i]>=trade_rate[i]) {
                     return true;
+                }
             return false;
         default:
+            return false;
+    }
+    return false;
+}
+
+bool Player::has_resources(vector<Resource> resources_) {
+    vector<int> temp_resources = resources;
+    for(Resource r: resources_) {
+        temp_resources[(int)r]--;
+        if(temp_resources[(int)r]<0)
             return false;
     }
     return true;
 }
 
-Road_Data Player::place_road() {
-    Road_Data road = Road_Data();
-    return road;
+void Player::add_dev_card(Development_Card card_) {
+    if (card_ == VictoryPoint) {
+        victory_points++;
+        return;
+    }
+    dev_cards.push_back(card_);
+    player_state->dev_cards = dev_cards.size();
 }
 
-Coordinate_Data Player::place_settlement() {
-    Coordinate_Data coords = Coordinate_Data();
-    return coords;
-}
-    
-Coordinate_Data Player::place_city() {
-    Coordinate_Data coords = Coordinate_Data();
-    return coords;
-}
-
-Development_Card Player::use_dev_card() {
-    return NoDevCard;
-}
-
-Trade Player::trade_offer() {
-    Trade trade = Trade();
-    return trade;
-}
-
-Trade Player::trade_bank() {
-    Trade trade = Trade();
-    return trade;
-}
-
-bool Player::accept_trade(Trade trade) {
-    return false;
-}
-
-Coordinate_Data Player::move_robber() {
-    Coordinate_Data coords = Coordinate_Data();
-    return coords;
+void Player::remove_dev_card(Development_Card card_) {
+    auto itr = find(dev_cards.begin(),dev_cards.end(),card_);
+    if(itr==dev_cards.end())
+    return;
+    auto index=distance(dev_cards.begin(), itr);
+    dev_cards.erase(dev_cards.begin() + index);
+    player_state->dev_cards = dev_cards.size();
 }
 
 void Player::add_resources(vector<Resource> resources_) {
     for(int i=0;i<resources_.size();i++)
         resources[(int) resources_[i]]++;
+
+    player_state->num_cards = get_num_resources();
 }
 
 void Player::remove_resources(vector<Resource> resources_) {
     for(int i=0;i<resources_.size();i++)
         if (resources[(int) resources_[i]]>0)
             resources[(int) resources_[i]]--;
+    
+    player_state->num_cards = get_num_resources();
+}
+
+void Player::add_harbor(Harbor harbor_) {
+    if (harbor_ == NoHarbor)
+        return;
+    harbors.push_back(harbor_);
+    if(harbor_ == GenericHarbor){
+        for(int i=0;i<trade_rate.size();i++){
+            if(trade_rate[i] > 3) {
+                trade_rate[i] = 3;
+            }
+        }
+        return;
+    }
+    trade_rate[(int)harbor_ -1] = 2;
+}
+
+int Player::get_num_resources() {
+    int out = 0;
+    for(int i=0;i<5;i++) {
+        out += resources[i];
+    }
+    return out;
 }

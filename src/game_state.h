@@ -17,7 +17,10 @@ struct Player_State {
 
 struct Game_State {
     vector<vector<vector<int>>> board;
+    vector<vector<int>> tiles;
+    vector<int> roads;
     vector<Player_State*> players;
+    ostringstream log_stream;
 };
 
 #endif

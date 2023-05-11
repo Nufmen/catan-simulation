@@ -3,13 +3,13 @@
 
 using namespace std;
 
-Bank::Bank(int num_resources_, int resource_count_, vector<int> dev_card_count_) {
+Bank::Bank(int num_resources_, int resource_count_, vector<int> dev_card_count_, default_random_engine generator_) {
     num_resources = num_resources_;
     resource_count = resource_count_;
     dev_card_count = dev_card_count_;
     resources.resize(num_resources);
     fill(resources.begin(), resources.end(),resource_count);
-    generator.seed(time(0));
+    generator = generator_;
     generate_dev_cards();
 }
 
@@ -31,49 +31,93 @@ Development_Card Bank::draw_dev_card() {
     return out;
 }
 
-bool Bank::accept_trade_offer(vector<Resource> offer, vector<Resource> request, Harbor port) {
-    if (request.size() != 1 || offer[0] == request[0])
+bool Bank::accept_trade_offer(Trade trade, Harbor port) {
+    if (trade.request.size() != 1 || trade.offer[0] == trade.request[0])
         return false;
     Resource check;
     switch(port) {
         case NoHarbor:
-            if(offer.size() != 4)
+            if(trade.offer.size() != 4)
                 return false;
-            check = offer[0];
-            for(Resource r: offer)
+            check = trade.offer[0];
+            for(Resource r: trade.offer)
                 if(r != check)
                     return false;
             return true;
         case GenericHarbor:
-            if(offer.size() != 3)
+            if(trade.offer.size() != 3)
                 return false;
-            check = offer[0];
-            for(Resource r: offer)
+            check = trade.offer[0];
+            for(Resource r: trade.offer)
                 if(r != check)
                     return false;
             return true;
         case BrickHarbor:
-            if (offer == vector<Resource>{Brick, Brick})
+            if (trade.offer == vector<Resource>{Brick, Brick})
                 return true;
             return false;
         case LumberHarbor:
-            if (offer == vector<Resource>{Lumber, Lumber})
+            if (trade.offer == vector<Resource>{Lumber, Lumber})
                 return true;
             return false;
         case WoolHarbor:
-            if (offer == vector<Resource>{Wool, Wool})
+            if (trade.offer == vector<Resource>{Wool, Wool})
                 return true;
             return false;
         case GrainHarbor:
-            if (offer == vector<Resource>{Grain, Grain})
+            if (trade.offer == vector<Resource>{Grain, Grain})
                     return true;
             return false;
         case OreHarbor:
-            if (offer == vector<Resource>{Ore, Ore})
+            if (trade.offer == vector<Resource>{Ore, Ore})
                     return true;
             return false;
         default:
             throw;
     }
     return false;
+}
+
+void Bank::add_resources(vector<Resource> resources_) {
+    for(int i=0;i<resources_.size();i++)
+        resources[(int) resources_[i]]++;
+}
+
+bool Bank::remove_resources(vector<Resource> resources_) {
+    vector<int> original_count = resources;
+    for(int i=0;i<resources_.size();i++)
+        if (resources[(int) resources_[i]]>0){
+            resources[(int) resources_[i]]--;
+        } else {
+            resources = original_count;
+            return false;
+        }
+    return true;
+}
+
+string Bank::get_dev_card_state() {
+    string output = "Dev Card State:\n";
+    for(int i=0;i<dev_cards->size();i++){
+        switch(dev_cards->at(i)){
+            case Knight:
+                output += "K";
+                break;
+            case VictoryPoint:
+                output += "V";
+                break;
+            case RoadBuilding:
+                output += "R";
+                break;
+            case YearOfPlenty:
+                output += "Y";
+                break;
+            case Monopoly:
+                output += "M";
+                break;
+            default:
+                output += "X";
+                break;
+        }
+    }
+    return output + "\n";
 }

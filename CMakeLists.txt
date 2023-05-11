@@ -21,4 +21,6 @@ target_link_directories(road PRIVATE src/)
 target_link_directories(board PRIVATE src/)
 
 add_subdirectory(tests)
-add_subdirectory(pybind11)
+
+add_executable(simulation simulation.cpp)
+target_link_libraries(simulation game default_player)
